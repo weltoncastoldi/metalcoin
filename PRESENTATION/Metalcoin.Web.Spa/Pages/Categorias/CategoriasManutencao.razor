@@ -1,0 +1,55 @@
+﻿@page "/categorias/{Id:int}"
+@using MetalCoin.Web.Spa.Core.Endpoint;
+@using MetalCoin.Web.Spa.Core.Models;
+
+@if (@Id > 0)
+{
+    <h3>Alterar Categoria #@Id</h3>
+}
+else
+{
+    <h3>Cadastrar Categoria</h3>
+}
+
+<div class="card">
+    <div class="card-body">
+        <EditForm Model="_request" OnValidSubmit="EnviarFormulario">
+           <DataAnnotationsValidator/>
+            <div class="row g-3 align-items-center">
+               <div class="col-5">
+                    <div class="form-floating">
+                        <InputText @bind-Value="_request.Nome" class="form-control" placeholder="categoria"></InputText>
+                       <label>Nome da categoria</label>
+                   </div>
+                   
+               </div>
+                <div class="col-7">
+                <div class="form-check">
+                    <InputCheckbox @bind-Value="_request.Status" class="form-check-input" id="check"></InputCheckbox>
+                    <label for="check" class="form-check-label">Deseja deixa a categoria vísivel</label>
+                </div>
+            </div>
+            </div>
+            <div class="row my-4">
+               <div class="col-12">
+                   <button type="submit" class="btn btn-primary">Salvar</button>
+                   <button type="reset"  class="btn btn-outline-dark">Cancelar</button>
+               </div>
+            </div>
+       </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    [Inject] ICategoriaEndpoint CategoriaEndpoint { get; set; }
+
+    private CategoriaRequest _request = new();
+    private CategoriaResponse _response = new();
+
+    protected void EnviarFormulario()
+    {
+        
+    }
+
+}
