@@ -15,7 +15,7 @@ namespace MetalCoin.Infra.Data.Repositories
             DbSet = db.Set<TEntidade>();
         }
         public virtual async Task Adicionar(TEntidade entidade)
-        {
+            {
             DbSet.Add(entidade);
             await Salvar();
         }

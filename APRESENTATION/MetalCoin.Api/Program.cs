@@ -1,3 +1,4 @@
+using MetalCoin.Api.Configuracoes;
 using MetalCoin.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,13 +11,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 // Configuração do banco de dados SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("SqlServer"));
 });
+
+builder.Services.ResolveDependencias();
 
 var app = builder.Build();
 

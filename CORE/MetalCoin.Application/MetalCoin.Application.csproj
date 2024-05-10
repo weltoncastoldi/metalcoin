@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Metalcoin.Core\Metalcoin.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Metalcoin.Core.Dtos.Categorias;
+using Metalcoin.Core.Dtos.Request;
+using Metalcoin.Core.Dtos.Response;
 
 namespace Metalcoin.Core.Interfaces.Services
 {
     public interface ICategoriaService
     {
-        void ObterTodos();
-        void ObterUm();
+        Task<CategoriaResponse> CadastrarCategoria(CategoriaCadastrarRequest categoria);
+        Task<CategoriaResponse> AtualizarCategoria(CategoriaAtualizarRequest categoria);
+        Task DeletarCategoria(Guid id);
     }
 }
