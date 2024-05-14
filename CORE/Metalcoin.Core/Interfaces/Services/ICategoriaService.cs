@@ -8,6 +8,6 @@ namespace Metalcoin.Core.Interfaces.Services
     {
         Task<CategoriaResponse> CadastrarCategoria(CategoriaCadastrarRequest categoria);
         Task<CategoriaResponse> AtualizarCategoria(CategoriaAtualizarRequest categoria);
-        Task DeletarCategoria(Guid id);
+        Task<bool> DeletarCategoria(Guid id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Metalcoin.Core.Dtos.Categorias;
+﻿using Metalcoin.Core.Domain;
+using Metalcoin.Core.Dtos.Categorias;
 using Metalcoin.Core.Dtos.Request;
 using Metalcoin.Core.Dtos.Response;
 using Metalcoin.Core.Interfaces.Repositories;
@@ -36,14 +37,43 @@ namespace MetalCoin.Application.Services
             return response;
         }
 
-        public Task<CategoriaResponse> CadastrarCategoria(CategoriaCadastrarRequest categoria)
+        public async Task<CategoriaResponse> CadastrarCategoria(CategoriaCadastrarRequest categoria)
         {
-            throw new NotImplementedException();
+
+            var categoriaExistente = await _categoriaRepository.BuscarPorNome(categoria.Nome);
+            
+            if (categoriaExistente != null) return null;
+
+            var categoriaEntidade = new Categoria 
+            {
+                Nome = categoria.Nome.ToUpper(),
+                Status = categoria.Status,
+                DataCadastro = DateTime.Now,
+                DataAlteracao = DateTime.Now
+            };
+
+            await _categoriaRepository.Adicionar(categoriaEntidade);
+
+            var response = new CategoriaResponse
+            {
+                Id = categoriaEntidade.Id,
+                Nome = categoriaEntidade.Nome,
+                Status = categoriaEntidade.Status,
+                DataCadastro = categoriaEntidade.DataCadastro,
+                DataAlteracao = categoriaEntidade.DataAlteracao
+            };
+
+            return response;
         }
 
-        public Task DeletarCategoria(Guid id)
+        public async Task<bool> DeletarCategoria(Guid id)
         {
-            throw new NotImplementedException();
+            var categoria = await _categoriaRepository.ObterPorId(id);
+            if(categoria == null) return false;   
+
+
+            await _categoriaRepository.Remover(id);
+            return true;
         }
     }
 }

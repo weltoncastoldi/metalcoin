@@ -1,5 +1,6 @@
 ﻿using Metalcoin.Core.Interfaces.Repositories;
-using MetalCoin.Infra.Data;
+using Metalcoin.Core.Interfaces.Services;
+using MetalCoin.Application.Services;
 using MetalCoin.Infra.Data.Repositories;
 
 namespace MetalCoin.Api.Configuracoes
@@ -10,6 +11,7 @@ namespace MetalCoin.Api.Configuracoes
             (this IServiceCollection services)
         {
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<ICategoriaService, CategoriaService>();
 
             return services;
         }

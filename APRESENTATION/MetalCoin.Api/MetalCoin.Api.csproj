@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CORE\MetalCoin.Application\MetalCoin.Application.csproj" />
     <ProjectReference Include="..\..\CORE\Metalcoin.Core\Metalcoin.Core.csproj" />
     <ProjectReference Include="..\..\INFRA\MetalCoin.Infra\MetalCoin.Infra.csproj" />
   </ItemGroup>
