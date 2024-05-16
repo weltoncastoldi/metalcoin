@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MetalCoin.Infra.Migrations
 {
-    public partial class InicioTabelaCupons : Migration
+    public partial class AtualizaBanco2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,12 +29,12 @@ namespace MetalCoin.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Codigo = table.Column<int>(type: "int", nullable: false),
+                    Codigo = table.Column<string>(type: "varchar(100)", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Desconto = table.Column<double>(type: "double", nullable: false),
+                    Desconto = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
                     QuantidadeLiberado = table.Column<int>(type: "int", nullable: false),
                     QuantidadeUsado = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DataValidade = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>

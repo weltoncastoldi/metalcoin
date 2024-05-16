@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetalCoin.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240516005426_InicioTabelaCupons")]
-    partial class InicioTabelaCupons
+    [Migration("20240516224332_AtualizaBanco")]
+    partial class AtualizaBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,20 +48,21 @@ namespace MetalCoin.Infra.Migrations
                     b.ToTable("Categorias", (string)null);
                 });
 
-            modelBuilder.Entity("Metalcoin.Core.Domain.Cupon", b =>
+            modelBuilder.Entity("Metalcoin.Core.Domain.Cupom", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Codigo")
-                        .HasColumnType("int");
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("DataValidade")
                         .HasColumnType("datetime");
 
-                    b.Property<double>("Desconto")
-                        .HasColumnType("double");
+                    b.Property<decimal>("Desconto")
+                        .HasColumnType("decimal(18,0)");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -73,8 +74,8 @@ namespace MetalCoin.Infra.Migrations
                     b.Property<int>("QuantidadeUsado")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Metalcoin.Core.Dtos.Request
 {
-    public class AtualizarCupom
+    public class AtualizarCupomRequest
     {
         public Guid Id { get; set; }
         public string Codigo { get; set; }

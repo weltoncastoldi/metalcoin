@@ -17,6 +17,33 @@ namespace MetalCoin.Application.Services
         public CupomServices(ICuponsRepository repository) {
             _CupomRepository = repository;
         }
+
+        public async Task<CuponsResponse> AtualizarCupom(AtualizarCupomRequest cupom)
+        {
+            var cupomDb = await _CupomRepository.ObterPorId(cupom.Id);
+            cupomDb.Codigo = cupom.Codigo;
+            cupomDb.Descricao = cupom.Descricao;
+            cupomDb.Desconto = cupom.Desconto;
+            cupomDb.QuantidadeLiberado = cupom.QuantidadeLiberado;
+            cupomDb.QuantidadeUsado = cupom.QuantidadeUsado;
+            cupomDb.Status = cupom.Status;
+            cupomDb.DataValidade = cupom.DataValidade;
+
+            await _CupomRepository.Atualizar(cupomDb);
+            var response = new CuponsResponse
+            {
+                Id = cupomDb.Id,
+                Codigo = cupomDb.Codigo,
+                Descricao = cupomDb.Descricao,
+                Desconto = cupomDb.Desconto,
+                QuantidadeLiberado = cupomDb.QuantidadeLiberado,
+                QuantidadeUsado = cupomDb.QuantidadeUsado,
+                Status = cupomDb.Status,
+                DataValidade = cupomDb.DataValidade
+            };
+            return response;
+        }
+
         public async Task<CuponsResponse> CadastrarCupons(CadastrarCupunsRequest cupom) {
 
             var cupomExiste = await _CupomRepository.BuscarPorNome(cupom.Codigo);

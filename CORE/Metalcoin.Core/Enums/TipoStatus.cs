@@ -8,9 +8,9 @@ namespace Metalcoin.Core.Enums
 {
     public enum TipoStatus
     {
-        Tipo = 1,
-        TipoSuccess = 2,
-        TipoFailure = 3,
-        TipoFailureSuccess = 4,
+        Ativo = 1,
+        Expirado = 2,
+        Desafiado = 3,
+        Utilizado = 4,
     }
 }
