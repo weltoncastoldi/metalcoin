@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Metalcoin.Core.Domain
 {
-    public class Cupons : Entidade
+    public class Cupon : Entidade
     {
         public int Codigo { get; set; }
         public string Descricao { get; set; }
         public double Desconto { get; set; }
-        public DateTime DataValidade { get; set; }
         public int QuantidadeLiberado { get; set; }
         public int QuantidadeUsado { get; set; }
         public bool Status { get; set; }
+        public DateTime DataValidade { get; set; }
     }
 }
