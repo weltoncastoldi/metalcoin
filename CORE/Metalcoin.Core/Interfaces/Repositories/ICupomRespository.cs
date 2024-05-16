@@ -1,4 +1,5 @@
 ﻿using Metalcoin.Core.Domain;
+using Metalcoin.Core.Dtos.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Metalcoin.Core.Interfaces.Repositories
 {
     public interface ICupomRespository : IRepository<Cupom>
     {
+
+        Task<List<Cupom>>BuscarTodosDisponiveis();
+        Task<List<Cupom>> BuscarTodosIndisponiveis();
 
     }
 }
