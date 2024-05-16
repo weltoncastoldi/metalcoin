@@ -1,4 +1,6 @@
-﻿using Metalcoin.Core.Interfaces.Repositories;
+﻿using Metalcoin.Core.Dtos.Request;
+using Metalcoin.Core.Interfaces.Repositories;
+using Metalcoin.Core.Interfaces.Services;
 using MetalCoin.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace MetalCoin.Api.Controllers
     {
 
         private readonly ICupomRespository _cupomRespository;
+        private readonly ICupomService _cupomService;
 
-        public CupomController(ICupomRespository cupomRespository)
+        public CupomController(ICupomRespository cupomRespository, ICupomService cupomService)
         {
             _cupomRespository = cupomRespository;
+            _cupomService = cupomService;
         }
         [HttpGet]
         [Route("obter-todos")]
@@ -46,11 +50,23 @@ namespace MetalCoin.Api.Controllers
         }
 
         [HttpPost]
-        [Route("cadatrar")]
-        public async Task<ActionResult> Cadastrar()
+        [Route("cadastrar")]
+        public async Task<ActionResult> Cadastrar([FromBody]CupomCadastraRequest cupom)
         {
-            var produtoCadastrado = _
+            if (cupom == null) return BadRequest("Favor informar os dados do cupom");
+            var response = _cupomService.CadastrarCupom(cupom);
+
+            if (response == null) return BadRequest("Cupom já existe");
+
+            return Created("cadastrar", response);
+
+
         }
+
+        [HttpPut]
+        [Route("atualizar")]
+
+        public async Task<ActionResult> Atualizar([FromBody]CupomAtualizarRequest)
 
 
 

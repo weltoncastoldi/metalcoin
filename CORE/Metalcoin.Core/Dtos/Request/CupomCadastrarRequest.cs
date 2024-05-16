@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Metalcoin.Core.Dtos.Request
 {
     public record CupomCadastraRequest
     {
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "Favor informar o codigo")]
         public string Codigo { get; set; }
         [Required(ErrorMessage = "Favor informar a descrição")]
@@ -25,4 +21,4 @@ namespace Metalcoin.Core.Dtos.Request
         public string Status { get; set; }
     }
 }
-}
+

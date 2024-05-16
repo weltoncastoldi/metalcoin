@@ -1,4 +1,5 @@
-﻿using Metalcoin.Core.Dtos.Categorias;
+﻿using Metalcoin.Core.Domain;
+using Metalcoin.Core.Dtos.Categorias;
 using Metalcoin.Core.Dtos.Request;
 using Metalcoin.Core.Dtos.Response;
 using System;
@@ -11,7 +12,8 @@ namespace Metalcoin.Core.Interfaces.Services
 {
     public interface ICupomService
     {
-        Task<CupomResponse> CadastrarCategoria(CupomCadastraRequest cupom);
+        Task<CupomResponse> CadastrarCupom(CupomCadastraRequest cupom);
+        Task<CupomResponse> AtualizarCupom(CupomAtualizarRequest cupom);
 
     }
 }

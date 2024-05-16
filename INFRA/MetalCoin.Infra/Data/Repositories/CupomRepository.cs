@@ -17,6 +17,8 @@ namespace MetalCoin.Infra.Data.Repositories
 
         public CupomRepository(AppDbContext appDbContext) : base(appDbContext) { }
 
+        
+
         public async Task<List<Cupom>> BuscarTodosDisponiveis()
         {
             var listaDeCupons = await DbSet.Where(c => c.QuantidadeLiberado > c.QuantidadeUsado && c.Status == "ativo").ToListAsync();
