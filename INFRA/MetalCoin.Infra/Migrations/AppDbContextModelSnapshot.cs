@@ -59,8 +59,8 @@ namespace MetalCoin.Infra.Migrations
                     b.Property<DateTime>("DataValidade")
                         .HasColumnType("datetime");
 
-                    b.Property<decimal>("Desconto")
-                        .HasColumnType("decimal(18,0)");
+                    b.Property<int>("Desconto")
+                        .HasColumnType("int");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

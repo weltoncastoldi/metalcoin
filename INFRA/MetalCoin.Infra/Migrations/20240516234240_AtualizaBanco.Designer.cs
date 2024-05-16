@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetalCoin.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240516224332_AtualizaBanco")]
+    [Migration("20240516234240_AtualizaBanco")]
     partial class AtualizaBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,8 +61,8 @@ namespace MetalCoin.Infra.Migrations
                     b.Property<DateTime>("DataValidade")
                         .HasColumnType("datetime");
 
-                    b.Property<decimal>("Desconto")
-                        .HasColumnType("decimal(18,0)");
+                    b.Property<int>("Desconto")
+                        .HasColumnType("int");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

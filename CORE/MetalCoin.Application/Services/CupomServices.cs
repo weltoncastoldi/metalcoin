@@ -47,11 +47,12 @@ namespace MetalCoin.Application.Services
         public async Task<CuponsResponse> CadastrarCupons(CadastrarCupunsRequest cupom) {
 
             var cupomExiste = await _CupomRepository.BuscarPorNome(cupom.Codigo);
-              
-            if (cupomExiste != null) {
+
+            if (cupomExiste != null)
+            {
                 return null;
             }
-           var cupomEntidade = new Cupom
+            var cupomEntidade = new Cupom
            {
                Codigo = cupom.Codigo,
                Descricao = cupom.Descricao,

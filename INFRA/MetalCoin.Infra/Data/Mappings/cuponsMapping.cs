@@ -16,7 +16,7 @@ namespace MetalCoin.Infra.Data.Mappings
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Codigo).HasColumnType("varchar(100)").IsRequired();
             builder.Property(c => c.Descricao).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(c => c.Desconto).HasColumnType("decimal(18, 0)").IsRequired();
+            builder.Property(c => c.Desconto).HasColumnType("int").IsRequired();
             builder.Property(c => c.QuantidadeLiberado).HasColumnType("int").IsRequired();
             builder.Property(c => c.QuantidadeUsado).HasColumnType("int").IsRequired();
             builder.Property(c => c.Status).HasColumnType("int").IsRequired();

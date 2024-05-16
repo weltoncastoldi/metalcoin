@@ -27,8 +27,8 @@ namespace MetalCoin.Api.Controllers
         }
 
         [HttpPost]
-        [Route("cadastrar")]
-        public async Task<ActionResult> CadastarCupons(CadastrarCupunsRequest cadastrarCupuns){
+        [Route("/cadastrar")]
+        public async Task<ActionResult> CadastarCupons([FromBody] CadastrarCupunsRequest cadastrarCupuns){
             if (cadastrarCupuns == null) {
                 return BadRequest("informe o cupom"); 
             }
@@ -40,7 +40,7 @@ namespace MetalCoin.Api.Controllers
         }
         [HttpPatch]
         [Route("atualizar")]
-        public async Task<ActionResult> AtualizarCupum(AtualizarCupomRequest atualizarCupom){
+        public async Task<ActionResult> AtualizarCupum([FromBody] AtualizarCupomRequest atualizarCupom){
             if (atualizarCupom == null) {
                 return BadRequest("Nenhum valor encontrado");
             }

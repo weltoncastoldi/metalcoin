@@ -11,7 +11,7 @@ namespace Metalcoin.Core.Dtos.Request
     {
         public string Codigo { get; set; }
         public string Descricao { get; set; }
-        public double Desconto { get; set; }
+        public TipoDesconto Desconto { get; set; }
         public int QuantidadeLiberado { get; set; }
         public int QuantidadeUsado { get; set; }
         public TipoStatus Status { get; set; }
