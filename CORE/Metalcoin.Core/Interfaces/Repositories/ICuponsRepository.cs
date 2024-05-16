@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Metalcoin.Core.Interfaces.Repositories
 {
-    public interface ICuponsRepository : IRepository<Cupon>
+    public interface ICuponsRepository : IRepository<Cupom>
     {
-        Task<Cupon> BuscarPorNome(int codigo);
+        Task<Cupom> BuscarPorNome(string codigo);
     }
 }

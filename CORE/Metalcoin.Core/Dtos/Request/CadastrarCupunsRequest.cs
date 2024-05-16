@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Metalcoin.Core.Dtos.Response
+namespace Metalcoin.Core.Dtos.Request
 {
-    public class CuponsResponse
+    public class CadastrarCupunsRequest
     {
-        public Guid Id { get; set; }
         public string Codigo { get; set; }
         public string Descricao { get; set; }
         public double Desconto { get; set; }

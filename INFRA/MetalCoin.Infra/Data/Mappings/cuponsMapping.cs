@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace MetalCoin.Infra.Data.Mappings
 {
-    internal class cuponsMapping : IEntityTypeConfiguration<Cupon>
+    internal class cuponsMapping : IEntityTypeConfiguration<Cupom>
     {
-        public void Configure(EntityTypeBuilder<Cupon> builder) {
+        public void Configure(EntityTypeBuilder<Cupom> builder) {
             builder.ToTable("Cupons");
             builder.HasKey(c => c.Id);
-            builder.Property(c => c.Codigo).HasColumnType("int").IsRequired();
+            builder.Property(c => c.Codigo).HasColumnType("varchar(100)").IsRequired();
             builder.Property(c => c.Descricao).HasColumnType("varchar(100)").IsRequired();
             builder.Property(c => c.Desconto).HasColumnType("double").IsRequired();
             builder.Property(c => c.QuantidadeLiberado).HasColumnType("int").IsRequired();
