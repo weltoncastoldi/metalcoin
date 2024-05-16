@@ -33,6 +33,24 @@ namespace MetalCoin.Api.Controllers
 
             return Ok(cuponsDisponiveis);
         }
+        [HttpGet]
+        [Route("obter-todos-indisponiveis")]
+        public async Task<ActionResult> ObterTodosIndisponiveis()
+        {
+            var cuponsDisponiveis = _cupomRespository.BuscarTodosIndisponiveis();
+
+            if (cuponsDisponiveis == null) return Ok("Não foi achado cupom disponivel no momento");
+
+            return Ok(cuponsDisponiveis);
+
+        }
+
+        [HttpPost]
+        [Route("cadatrar")]
+        public async Task<ActionResult> Cadastrar()
+        {
+            var produtoCadastrado = _
+        }
 
 
 
