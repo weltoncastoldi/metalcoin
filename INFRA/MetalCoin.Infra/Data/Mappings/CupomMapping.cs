@@ -18,35 +18,35 @@ namespace MetalCoin.Infra.Data.Mappings
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.CodigoCupom)
-     
+                .HasColumnType("int")
                 .IsRequired();
 
             builder.Property(p => p.Descricao)
-    
+                .HasColumnType("varchar(100)")
                 .IsRequired();
 
             builder.Property(p => p.ValorDesconto)
-        
+                .HasColumnType("int")
                 .IsRequired();
 
             builder.Property(p => p.TipoDesconto)
-
+                .HasColumnType("int")
                 .IsRequired();
 
             builder.Property(p => p.DataValidade)
-         
+                .HasColumnType("datetime")
                 .IsRequired();
 
-            builder.Property(p => p.QuantidadeCuponsdLiberados)
-
+            builder.Property(p => p.QuantidadeCuponsLiberados)
+                .HasColumnType("int")
                 .IsRequired();
 
             builder.Property(p => p.QuantidadeCuponsUsados)
-        
+                .HasColumnType("int")
                 .IsRequired();
 
             builder.Property(p => p.TipoStatus)
-
+                .HasColumnType("int")
                 .IsRequired();
 
         }

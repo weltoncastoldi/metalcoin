@@ -29,7 +29,7 @@ namespace MetalCoin.Application.Services
             cupomDb.ValorDesconto = cupom.ValorDesconto;
             cupomDb.TipoDesconto = cupom.TipoDesconto;
             cupomDb.DataValidade = cupom.DataValidade;
-            cupomDb.QuantidadeCuponsdLiberados = cupom.QuantidadeCuponsdLiberados;
+            cupomDb.QuantidadeCuponsLiberados = cupom.QuantidadeCuponsLiberados;
             cupomDb.QuantidadeCuponsUsados = cupom.QuantidadeCuponsUsados;
             cupomDb.TipoStatus = cupom.TipoStatus;
 
@@ -44,7 +44,7 @@ namespace MetalCoin.Application.Services
                 ValorDesconto = cupomDb.ValorDesconto,
                 TipoDesconto = cupomDb.TipoDesconto,
                 DataValidade = cupomDb.DataValidade,
-                QuantidadeCuponsdLiberados = cupomDb.QuantidadeCuponsdLiberados,
+                QuantidadeCuponsLiberados = cupomDb.QuantidadeCuponsLiberados,
                 QuantidadeCuponsUsados = cupomDb.QuantidadeCuponsUsados,
                 TipoStatus = cupomDb.TipoStatus
 
@@ -67,7 +67,7 @@ namespace MetalCoin.Application.Services
                 ValorDesconto = cupom.ValorDesconto,
                 TipoDesconto = cupom.TipoDesconto,
                 DataValidade = cupom.DataValidade,
-                QuantidadeCuponsdLiberados = cupom.QuantidadeCuponsdLiberados,
+                QuantidadeCuponsLiberados = cupom.QuantidadeCuponsLiberados,
                 QuantidadeCuponsUsados = cupom.QuantidadeCuponsUsados,
                 TipoStatus = cupom.TipoStatus
             };
@@ -82,7 +82,7 @@ namespace MetalCoin.Application.Services
                 ValorDesconto = cupomEntidade.ValorDesconto,
                 TipoDesconto = cupomEntidade.TipoDesconto,
                 DataValidade = cupomEntidade.DataValidade,
-                QuantidadeCuponsdLiberados = cupomEntidade.QuantidadeCuponsdLiberados,
+                QuantidadeCuponsLiberados = cupomEntidade.QuantidadeCuponsLiberados,
                 QuantidadeCuponsUsados = cupomEntidade.QuantidadeCuponsUsados,
                 TipoStatus = cupomEntidade.TipoStatus
 

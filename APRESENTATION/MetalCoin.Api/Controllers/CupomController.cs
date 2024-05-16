@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetalCoin.Api.Controllers
 {
+    [ApiController]
     public class CupomController : ControllerBase
     {
 
@@ -19,8 +20,8 @@ namespace MetalCoin.Api.Controllers
         }
 
         [HttpGet]
-        [Route("todos")]
-        public async Task<ActionResult> ObterTodasCategorias()
+        [Route("TodosCupoms")]
+        public async Task<ActionResult> ObterTodosCupons()
         {
             var listaCategorias = await _cupomRepository.ObterTodos();
 
@@ -31,7 +32,7 @@ namespace MetalCoin.Api.Controllers
 
 
         [HttpGet]
-        [Route("{id:guid}")]
+        [Route("idCupons")]
         public async Task<ActionResult> ObterUmCupom(Guid id)
         {
             var cupom = await _cupomRepository.ObterPorId(id);
@@ -41,7 +42,7 @@ namespace MetalCoin.Api.Controllers
 
 
         [HttpPost]
-        [Route("cadastrar")]
+        [Route("CadastrarCupons")]
         public async Task<ActionResult> CadastrarCupom([FromBody] CupomCadastrarRequest cupom)
         {
             if (cupom == null) return BadRequest("Informe o nome da categoria");
@@ -55,7 +56,7 @@ namespace MetalCoin.Api.Controllers
 
 
         [HttpPut]
-        [Route("atualizar")]
+        [Route("AtualizarCupons")]
         public async Task<ActionResult> AtualizarCupom([FromBody] CupomAtualizarRequest cupom)
         {
             if (cupom == null) return BadRequest("Nenhum valor chegou na API");
@@ -66,7 +67,7 @@ namespace MetalCoin.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("deletar/{id:guid}")]
+        [Route("deletarCupons")]
         public async Task<ActionResult> RemoverCategoria(Guid id)
         {
             if (id == Guid.Empty) return BadRequest("Id não informado");

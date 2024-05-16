@@ -56,16 +56,16 @@ namespace MetalCoin.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataValidade")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("QuantidadeCuponsUsados")
+                    b.Property<int>("QuantidadeCuponsLiberados")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuantidadeCuponsdLiberados")
+                    b.Property<int>("QuantidadeCuponsUsados")
                         .HasColumnType("int");
 
                     b.Property<int>("TipoDesconto")
@@ -74,8 +74,8 @@ namespace MetalCoin.Infra.Migrations
                     b.Property<int>("TipoStatus")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ValorDesconto")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("ValorDesconto")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

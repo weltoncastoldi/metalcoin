@@ -11,10 +11,10 @@ namespace Metalcoin.Core.Dtos.Request
     {
         public int CodigoCupom { get; set; }
         public string Descricao { get; set; }
-        public decimal ValorDesconto { get; set; }
+        public int ValorDesconto { get; set; }
         public TipoDesconto TipoDesconto { get; set; }
         public DateTime DataValidade { get; set; }
-        public int QuantidadeCuponsdLiberados { get; set; }
+        public int QuantidadeCuponsLiberados { get; set; }
         public int QuantidadeCuponsUsados { get; set; }
         public TipoStatus TipoStatus { get; set; }
     }
