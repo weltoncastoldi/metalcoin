@@ -23,16 +23,16 @@ namespace MetalCoin.Api.Controllers
         [Route("TodosCupoms")]
         public async Task<ActionResult> ObterTodosCupons()
         {
-            var listaCategorias = await _cupomRepository.ObterTodos();
+            var listaCupons = await _cupomRepository.ObterTodos();
 
-            if (listaCategorias.Count == 0) return NoContent();
+            if (listaCupons.Count == 0) return NoContent();
 
-            return Ok(listaCategorias);
+            return Ok(listaCupons);
         }
 
 
         [HttpGet]
-        [Route("idCupons")]
+        [Route("ObterUmCupons")]
         public async Task<ActionResult> ObterUmCupom(Guid id)
         {
             var cupom = await _cupomRepository.ObterPorId(id);

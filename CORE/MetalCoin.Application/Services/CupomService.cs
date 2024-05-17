@@ -15,10 +15,19 @@ namespace MetalCoin.Application.Services
     public class CupomService : ICupomService
     {
         private readonly ICupomRepository _cupomRepository;
-        public CupomService(ICupomRepository repository)
+        private readonly ICupomService _cupomService;
+        public CupomService(ICupomRepository repository, ICupomService service)
         {
             _cupomRepository = repository;
+            _cupomService = service;
         }
+
+
+        public Task<bool> AtivarCupomAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<CupomResponse> AtualizarCupom(CupomAtualizarRequest cupom)
         {
             var cupomDb = await _cupomRepository.ObterPorId(cupom.Id);
@@ -56,6 +65,11 @@ namespace MetalCoin.Application.Services
 
         public async Task<CupomResponse> CadastrarCupom(CupomCadastrarRequest cupom)
         {
+            if (cupom.DataValidade < DateTime.UtcNow)
+            {
+                throw new InvalidOperationException("A data de validade não pode ser no passado.");
+            }
+
             var cupomExistente = await _cupomRepository.BuscarPorNome(cupom.CodigoCupom);
 
             if (cupomExistente != null) return null;
@@ -91,7 +105,17 @@ namespace MetalCoin.Application.Services
             return response;
         }
 
-        public Task<bool> DeletarCupom(Guid id)
+        public async Task<bool> DeletarCupom(Guid id)
+        {
+            var categoria = await _cupomRepository.ObterPorId(id);
+            if (categoria == null) return false;
+
+
+            await _cupomRepository.Remover(id);
+            return true;
+        }
+
+        public Task<bool> DesativarCupomAsync(Guid id)
         {
             throw new NotImplementedException();
         }

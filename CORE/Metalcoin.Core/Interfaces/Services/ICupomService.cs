@@ -14,5 +14,7 @@ namespace Metalcoin.Core.Interfaces.Services
         Task<CupomResponse> CadastrarCupom(CupomCadastrarRequest cupom);
         Task<CupomResponse> AtualizarCupom(CupomAtualizarRequest cupom);
         Task<bool> DeletarCupom(Guid id);
+        Task<bool> AtivarCupomAsync(Guid id);
+        Task<bool> DesativarCupomAsync(Guid id);
     }
 }

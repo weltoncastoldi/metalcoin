@@ -10,5 +10,6 @@ namespace Metalcoin.Core.Interfaces.Repositories
     public interface ICupomRepository : IRepository<Cupom>
     {
         Task<Cupom> BuscarPorNome(int codigoCupom);
+        Task<Task<bool>> UpdateStatusAsync(Guid id, int v);
     }
 }
