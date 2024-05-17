@@ -9,6 +9,6 @@ namespace Metalcoin.Core.Interfaces.Repositories
 {
     public interface ICuponsRepository : IRepository<Cupom>
     {
-        Task<Cupom> BuscarPorNome(string codigo);
+        Task<Cupom> BuscarPorNomeCupom(string codigo);
     }
 }

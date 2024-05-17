@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetalCoin.Api.Controllers
 {
+    [ApiController]
     public class CuponsController : ControllerBase
     {
         private readonly ICuponsRepository _cuponsRepository;
@@ -14,6 +15,8 @@ namespace MetalCoin.Api.Controllers
             _cuponsRepository = cuponsRepository;
             _cupomServices = cupomServices;
         }
+
+
         [HttpGet]
         [Route("todos")]
         public async Task<ActionResult> ObterTodosCupons() {

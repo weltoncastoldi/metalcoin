@@ -3,11 +3,6 @@ using Metalcoin.Core.Dtos.Request;
 using Metalcoin.Core.Dtos.Response;
 using Metalcoin.Core.Interfaces.Repositories;
 using Metalcoin.Core.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MetalCoin.Application.Services
 {
@@ -46,12 +41,13 @@ namespace MetalCoin.Application.Services
 
         public async Task<CuponsResponse> CadastrarCupons(CadastrarCupunsRequest cupom) {
 
-            var cupomExiste = await _CupomRepository.BuscarPorNome(cupom.Codigo);
+            //var cupomExiste = await _CupomRepository.BuscarPorNomeCupom(cupom.Codigo);
 
-            if (cupomExiste != null)
-            {
-                return null;
-            }
+            //if (cupomExiste == null)
+            //{
+            //    return null;
+            //}
+
             var cupomEntidade = new Cupom
            {
                Codigo = cupom.Codigo,
