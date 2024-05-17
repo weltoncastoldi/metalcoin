@@ -6,7 +6,7 @@ namespace Metalcoin.Core.Dtos.Request
     public record CupomCadastraRequest
     {
         public Guid Id { get; set; }
-        [Required(ErrorMessage = "Favor informar o codigo")]
+      
         public string Codigo { get; set; }
         [Required(ErrorMessage = "Favor informar a descrição")]
         public string Descricao { get; set; }

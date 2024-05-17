@@ -16,6 +16,11 @@ namespace MetalCoin.Application.Services
     {
         private readonly ICupomRespository _cupomRepository;
 
+        public CupomService (ICupomRespository cupomRespository)
+        {
+            _cupomRepository = cupomRespository;
+        }
+
         
 
 

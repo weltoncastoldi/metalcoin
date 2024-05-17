@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetalCoin.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240517003129_Cupom")]
-    partial class Cupom
+    [Migration("20240517004623_adicionandoCupom")]
+    partial class adicionandoCupom
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
