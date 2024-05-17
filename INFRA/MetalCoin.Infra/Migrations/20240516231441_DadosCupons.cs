@@ -5,10 +5,44 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MetalCoin.Infra.Migrations
 {
-    public partial class InicioBanco : Migration
+    public partial class DadosCupons : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categorias",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime", nullable: false),
+                    DataAlteracao = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categorias", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cupoms",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CodigoCupom = table.Column<int>(type: "int", nullable: false),
+                    Descricao = table.Column<string>(type: "varchar(100)", nullable: false),
+                    ValorDesconto = table.Column<int>(type: "int", nullable: false),
+                    TipoDesconto = table.Column<int>(type: "int", nullable: false),
+                    DataValidade = table.Column<DateTime>(type: "datetime", nullable: false),
+                    QuantidadeCuponsLiberados = table.Column<int>(type: "int", nullable: false),
+                    QuantidadeCuponsUsados = table.Column<int>(type: "int", nullable: false),
+                    TipoStatus = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cupoms", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Fornecedores",
                 columns: table => new
@@ -84,6 +118,12 @@ namespace MetalCoin.Infra.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Categorias");
+
+            migrationBuilder.DropTable(
+                name: "Cupoms");
+
             migrationBuilder.DropTable(
                 name: "Enderecos");
 
