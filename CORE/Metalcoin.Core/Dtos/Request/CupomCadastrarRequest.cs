@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Metalcoin.Core.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Metalcoin.Core.Dtos.Request
 {
@@ -12,13 +13,13 @@ namespace Metalcoin.Core.Dtos.Request
         [Required(ErrorMessage = "Favor informar o valor do desconto")]
         public decimal ValorDesconto { get; set; }
         [Required(ErrorMessage = "Favor informar o tipo de desconto")]
-        public string TipoDesconto { get; set; }
+        public TipoDesconto TipoDesconto { get; set; }
         [Required(ErrorMessage = "Favor informar a data de validade")]
         public DateTime DataValidade { get; set; }
         [Required(ErrorMessage = "Favor informar a quantidade que vai ser liberado")]
         public int QuantidadeLiberado { get; set; }
         [Required(ErrorMessage = "Favor informar o Status")]
-        public string Status { get; set; }
+        public TipoStatus Status { get; set; }
     }
 }
 

@@ -3,6 +3,7 @@ using Metalcoin.Core.Interfaces.Repositories;
 using Metalcoin.Core.Interfaces.Services;
 using MetalCoin.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace MetalCoin.Api.Controllers
 {
@@ -50,7 +51,7 @@ namespace MetalCoin.Api.Controllers
         }
 
         [HttpPost]
-        [Route("cadastrar")]
+        [Route("cadastrar-cupom")]
         public async Task<ActionResult> Cadastrar([FromBody]CupomCadastraRequest cupom)
         {
             if (cupom == null) return BadRequest("Favor informar os dados do cupom");
@@ -64,9 +65,47 @@ namespace MetalCoin.Api.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar")]
+        [Route("atualizar-cupom")]
 
-        public async Task<ActionResult> Atualizar([FromBody]CupomAtualizarRequest)
+        public async Task<ActionResult> Atualizar([FromBody]CupomAtualizarRequest cupom)
+        {
+            if (cupom == null) return BadRequest("Favor informar os dados");
+
+            var response = _cupomService.AtualizarCupom(cupom);
+            if (response == null) return BadRequest("Cupom não existe no banco de dados");
+
+            return Ok(cupom);
+        }
+        [HttpPut]
+        [Route("ativar-cupom/{id:guid}")]
+        public async Task<ActionResult> Ativar(Guid id)
+        {
+            var response = await _cupomService.Ativar(id);
+            if (!response) return BadRequest("Não foi possivel atualizar");
+
+            return  Ok("Cupom Ativado");
+        }
+        [HttpPut]
+        [Route("desativar-cupom/{id:guid}")]
+        public async Task<ActionResult> Desativar(Guid id)
+        {
+            var response = await _cupomService.Desativar(id);
+            if (!response) return BadRequest("Não foi possivel atualizar");
+
+            return Ok("Cupom Desativado");
+        }
+
+        [HttpDelete]
+        [Route("deletar-cupom")]
+        public async Task<ActionResult> Deletar(Guid id)
+        {
+            if (id == null) return BadRequest("Favor informar o id");
+            var response = await _cupomService.Deletar(id);
+            if (!response) return BadRequest("Nao foi possivel deletar");
+
+            return Ok("Cupom deletado com Sucesso");
+        }
+
 
 
 

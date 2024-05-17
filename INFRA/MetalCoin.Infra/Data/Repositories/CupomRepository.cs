@@ -1,5 +1,6 @@
 ﻿using Metalcoin.Core.Domain;
 using Metalcoin.Core.Dtos.Response;
+using Metalcoin.Core.Enums;
 using Metalcoin.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,14 +22,14 @@ namespace MetalCoin.Infra.Data.Repositories
 
         public async Task<List<Cupom>> BuscarTodosDisponiveis()
         {
-            var listaDeCupons = await DbSet.Where(c => c.QuantidadeLiberado > c.QuantidadeUsado && c.Status == "ativo").ToListAsync();
+            var listaDeCupons = await DbSet.Where(c => c.QuantidadeLiberado > c.QuantidadeUsado && c.Status == TipoStatus.Ativo).ToListAsync();
             
             return listaDeCupons ;
         }
 
         public  async Task<List<Cupom>> BuscarTodosIndisponiveis()
         {
-            var listaDeCupons = await DbSet.Where(c => c.QuantidadeLiberado <= c.QuantidadeUsado && c.Status != "ativo").ToListAsync();
+            var listaDeCupons = await DbSet.Where(c => c.QuantidadeLiberado <= c.QuantidadeUsado && c.Status != TipoStatus.Desativado).ToListAsync();
 
             return listaDeCupons;
         }

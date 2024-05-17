@@ -1,6 +1,7 @@
 ﻿using Metalcoin.Core.Domain;
 using Metalcoin.Core.Dtos.Request;
 using Metalcoin.Core.Dtos.Response;
+using Metalcoin.Core.Enums;
 using Metalcoin.Core.Interfaces.Repositories;
 using Metalcoin.Core.Interfaces.Services;
 using System;
@@ -14,30 +15,54 @@ namespace MetalCoin.Application.Services
     public class CupomService : ICupomService
     {
         private readonly ICupomRespository _cupomRepository;
-        public CupomService(ICupomRespository cupom)
+
+        
+
+
+        public async Task<bool> Ativar(Guid id)
         {
-            _cupomRepository = cupom;
+            var cupomDb = await _cupomRepository.ObterPorId(id);
+            if (cupomDb == null ) return false;
+
+            cupomDb.Status = TipoStatus.Ativo;
+
+            return true;
+        }
+        public async Task<bool> Desativar(Guid id)
+        {
+            var cupomDb = await _cupomRepository.ObterPorId(id);
+            if (cupomDb == null) return false;
+
+            cupomDb.Status = TipoStatus.Desativado;
+
+            return true;
         }
 
-        public Task<CupomResponse> AtualizarCupom(CupomAtualizarRequest cupom)
+        public async Task<CupomResponse> AtualizarCupom(CupomAtualizarRequest cupom)
         {
-            var cupomDb = _cupomRepository.ObterPorId(cupom.Id);
+            
+            var cupomDb = await _cupomRepository.ObterPorId(cupom.Id);
             if (cupomDb == null)  return null;
 
-            
-
+            cupomDb.Codigo = cupom.Codigo;
+            cupomDb.Descricao = cupom.Descricao;
+            cupomDb.ValorDesconto = cupom.ValorDesconto;
+            cupomDb.TipoDesconto = cupom.TipoDesconto;
+            cupomDb.DataValidade = cupom.DataValidade;
+            cupomDb.QuantidadeLiberado = cupom.QuantidadeLiberado;
+            cupomDb.Status = cupom.Status;
 
             var response = new CupomResponse
             {
                 
-                Id = cupom.Id,
-                Codigo = cupom.Codigo,
-                Descricao = cupom.Descricao,
-                ValorDesconto = cupom.ValorDesconto,
-                TipoDesconto = cupom.TipoDesconto,
-                DataValidade = cupom.DataValidade,
-                QuantidadeLiberado = cupom.QuantidadeLiberado,
-                Status = cupom.Status,
+                Id = cupomDb.Id,
+                Codigo = cupomDb.Codigo,
+                Descricao = cupomDb.Descricao,
+                ValorDesconto = cupomDb.ValorDesconto,
+                TipoDesconto = cupomDb.TipoDesconto,
+                DataValidade = cupomDb.DataValidade,
+                QuantidadeLiberado = cupomDb.QuantidadeLiberado,
+                Status = cupomDb.Status,
 
             };
 
@@ -86,5 +111,13 @@ namespace MetalCoin.Application.Services
 
         }
 
+        public async Task<bool> Deletar(Guid id)
+        {
+            var cupomDb = _cupomRepository.ObterPorId(id);
+            if (cupomDb == null) { return false; }
+
+            await _cupomRepository.Remover(id);
+            return true;
+        }
     }
 }
