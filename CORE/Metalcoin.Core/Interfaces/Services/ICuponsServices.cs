@@ -10,14 +10,13 @@ using System.Threading.Tasks;
 
 namespace Metalcoin.Core.Interfaces.Services
 {
-    public interface ICupomService
+    public interface ICuponsServices
     {
         Task<CupomResponse> CadastrarCupom(CupomCadastrarRequest cupom);
-        Task<CupomResponse> AtualizarCupom(CupomAtualizarRequest cupom);   
-        Task<bool> Deletar(Guid id);
-        Task<bool> Ativar(Guid id);
-        Task<bool> Desativar(Guid id);
-
-
+        Task<CupomResponse> AtualizaCupom(CupomAtualizarRequest cupom);
+        Task<bool> DeletarCupom(Guid id);
+        Task<bool> AtivarCupom(Guid id);
+        Task<bool> DesativarCupom(Guid id);
+        
     }
 }

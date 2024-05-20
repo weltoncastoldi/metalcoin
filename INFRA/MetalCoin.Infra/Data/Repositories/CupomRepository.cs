@@ -1,5 +1,5 @@
 ﻿using Metalcoin.Core.Domain;
-using Metalcoin.Core.Dtos.Response;
+using Metalcoin.Core.Dtos.Request;
 using Metalcoin.Core.Enums;
 using Metalcoin.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -7,32 +7,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MetalCoin.Infra.Data.Repositories
 {
-    public class CupomRepository : Repository<Cupom>, ICupomRespository
+    public class CupomRepository: Repository<Cupom>,ICuponsRepository
     {
-        private readonly ICupomRespository _cupomRespository;
-
         public CupomRepository(AppDbContext appDbContext) : base(appDbContext) { }
-
-        
-
-        public async Task<List<Cupom>> BuscarTodosDisponiveis()
+        public async Task<List<Cupom>> BuscarCupomAtivos()
         {
-            var listaDeCupons = await DbSet.Where(c => c.QuantidadeLiberado > c.QuantidadeUsado && c.Status == TipoStatus.Ativo).ToListAsync();
-            
-            return listaDeCupons ;
+            var resultado = await DbSet.Where(x => x.statusCupom == TipoStatusCupom.Ativo).ToListAsync();
+            return resultado;
         }
 
-        public  async Task<List<Cupom>> BuscarTodosIndisponiveis()
+        public async Task<List<Cupom>> BuscarCupomIndisponiveis()
         {
-            var listaDeCupons = await DbSet.Where(c => c.QuantidadeLiberado <= c.QuantidadeUsado && c.Status != TipoStatus.Desativado).ToListAsync();
-
-            return listaDeCupons;
+            var resultado = await DbSet.Where(x => x.statusCupom == TipoStatusCupom.Desativado).ToListAsync();
+            return resultado;
         }
+        //public async Task<Cupom> BuscarPorCodigo(string codigo)
+        //{
+        //    var resultado = await DbSet.Where(x => x.CodigoCupom == codigo).ToListAsync();
+        //    return resultado;
+        //}
     }
 }
-

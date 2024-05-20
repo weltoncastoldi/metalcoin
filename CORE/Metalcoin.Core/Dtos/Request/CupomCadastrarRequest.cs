@@ -1,25 +1,30 @@
 ﻿using Metalcoin.Core.Enums;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Metalcoin.Core.Dtos.Request
 {
-    public record CupomCadastraRequest
+    public class CupomCadastrarRequest
     {
-        public Guid Id { get; set; }
-      
-        public string Codigo { get; set; }
-        [Required(ErrorMessage = "Favor informar a descrição")]
+        [Required(ErrorMessage = "Este campo é obrigátorio")]
+        [MaxLength(100, ErrorMessage = "Cupom pode ter no máximo 100 letras")]
         public string Descricao { get; set; }
-        [Required(ErrorMessage = "Favor informar o valor do desconto")]
+        [Required(ErrorMessage = "Este campo é obrigátorio")]
         public decimal ValorDesconto { get; set; }
-        [Required(ErrorMessage = "Favor informar o tipo de desconto")]
-        public TipoDesconto TipoDesconto { get; set; }
-        [Required(ErrorMessage = "Favor informar a data de validade")]
+        [Required(ErrorMessage = "Este campo é obrigátorio")]
+        public TipoDesconto TipoDescontoCupon { get; set; }
+        [Required(ErrorMessage = "Este campo é obrigátorio")]
+        public TipoStatusCupom statusCupom { get; set; }
+        [Required(ErrorMessage = "Este campo é obrigátorio")]
         public DateTime DataValidade { get; set; }
-        [Required(ErrorMessage = "Favor informar a quantidade que vai ser liberado")]
+        [Required(ErrorMessage = "Este campo é obrigátorio")]
         public int QuantidadeLiberado { get; set; }
-        [Required(ErrorMessage = "Favor informar o Status")]
-        public TipoStatus Status { get; set; }
+        [Required(ErrorMessage = "Este campo é obrigátorio")]
+        public int QuantidadeUsado { get; set; }
+
     }
 }
-

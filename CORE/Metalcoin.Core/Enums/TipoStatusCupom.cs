@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Metalcoin.Core.Enums
 {
-    public  enum TipoDesconto
+    public enum TipoStatusCupom
     {
-        Porcentagem = 0,
-        ValorFixo = 1
+        Ativo = 0,
+        Expirado = 1,
+        Desativado = 2,
+        TotalmenteUtilizado = 3
     }
 }

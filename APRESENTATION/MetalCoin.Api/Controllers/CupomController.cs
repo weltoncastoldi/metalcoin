@@ -1,113 +1,127 @@
 ﻿using Metalcoin.Core.Dtos.Request;
 using Metalcoin.Core.Interfaces.Repositories;
 using Metalcoin.Core.Interfaces.Services;
-using MetalCoin.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 
 namespace MetalCoin.Api.Controllers
 {
     [ApiController]
     public class CupomController : ControllerBase
     {
+        private readonly ICuponsRepository _cuponsRepository;
+        private readonly ICuponsServices _cuponsServices;
 
-        private readonly ICupomRespository _cupomRespository;
-        private readonly ICupomService _cupomService;
-
-        public CupomController(ICupomRespository cupomRespository, ICupomService cupomService)
+        public CupomController(ICuponsRepository cuponsRepository, ICuponsServices cuponsServices)
         {
-            _cupomRespository = cupomRespository;
-            _cupomService = cupomService;
+            _cuponsRepository = cuponsRepository;
+            _cuponsServices = cuponsServices;
         }
+
         [HttpGet]
-        [Route("obter-todos")]
+        [Route("obter-todos-cupons")]
         public async Task<ActionResult> ObterTodosCupons()
         {
-            var todosCupons = await _cupomRespository.ObterTodos();
-            return Ok(todosCupons);
+            var listarCupons = await _cuponsRepository.ObterTodos();
 
+            if (listarCupons.Count == 0) return NoContent();
+
+            return Ok(listarCupons);
         }
 
 
         [HttpGet]
-        [Route("obter-todos-disponiveis")]
-        public async Task<ActionResult> ObterTodosDisponiveis()
+        [Route("obter-todos-ativos")]
+        public async Task<ActionResult> ObterTodosCuponsAtivos()
         {
-            var cuponsDisponiveis = _cupomRespository.BuscarTodosDisponiveis();
-            if (cuponsDisponiveis == null) return Ok("Não foi achado cupom disponivel no momento");
+            var listarCupons = await _cuponsRepository.BuscarCupomAtivos();
 
-            return Ok(cuponsDisponiveis);
+
+            return Ok(listarCupons);
         }
         [HttpGet]
-        [Route("obter-todos-indisponiveis")]
-        public async Task<ActionResult> ObterTodosIndisponiveis()
+        [Route("obter-todos-desativados")]
+        public async Task<ActionResult> ObterTodosCuponsDesativados()
         {
-            var cuponsDisponiveis = _cupomRespository.BuscarTodosIndisponiveis();
+            var listarCupons = await _cuponsRepository.BuscarCupomIndisponiveis();
 
-            if (cuponsDisponiveis == null) return Ok("Não foi achado cupom disponivel no momento");
 
-            return Ok(cuponsDisponiveis);
-
+            return Ok(listarCupons);
         }
+        [HttpGet]
+        [Route("obter/{id:guid}")]
+        public async Task<ActionResult> ObterPorId(Guid id)
+        {
+            var categoria = await _cuponsRepository.ObterPorId(id);
+            if (categoria == null) return BadRequest("Cupom não encontrado");
+            return Ok(categoria);
+        }
+
 
         [HttpPost]
         [Route("cadastrar-cupom")]
-        public async Task<ActionResult> Cadastrar([FromBody]CupomCadastraRequest cupom)
+        public async Task<ActionResult> CadastrarCupom([FromBody] CupomCadastrarRequest cupom)
         {
-            if (cupom == null) return BadRequest("Favor informar os dados do cupom");
-            var response = _cupomService.CadastrarCupom(cupom);
+            if (cupom == null) return BadRequest("Informe o nome da cupom");
+
+            var response = await _cuponsServices.CadastrarCupom(cupom);
 
             if (response == null) return BadRequest("Cupom já existe");
 
             return Created("cadastrar", response);
-
-
         }
+
 
         [HttpPut]
         [Route("atualizar-cupom")]
-
-        public async Task<ActionResult> Atualizar([FromBody]CupomAtualizarRequest cupom)
+        public async Task<ActionResult> AtualizarCupom([FromBody] CupomAtualizarRequest cupom)
         {
             if (cupom == null) return BadRequest("Favor informar os dados");
 
-            var response = _cupomService.AtualizarCupom(cupom);
-            if (response == null) return BadRequest("Cupom não existe no banco de dados");
+            var response = await _cuponsServices.AtualizaCupom(cupom);
 
-            return Ok(cupom);
+            return Ok(response);
         }
-        [HttpPut]
-        [Route("ativar-cupom/{id:guid}")]
-        public async Task<ActionResult> Ativar(Guid id)
-        {
-            var response = await _cupomService.Ativar(id);
-            if (!response) return BadRequest("Não foi possivel atualizar");
 
-            return  Ok("Cupom Ativado");
-        }
-        [HttpPut]
-        [Route("desativar-cupom/{id:guid}")]
-        public async Task<ActionResult> Desativar(Guid id)
-        {
-            var response = await _cupomService.Desativar(id);
-            if (!response) return BadRequest("Não foi possivel atualizar");
 
-            return Ok("Cupom Desativado");
-        }
 
         [HttpDelete]
-        [Route("deletar-cupom")]
-        public async Task<ActionResult> Deletar(Guid id)
+        [Route("deletar/cupom/{id:guid}")]
+        public async Task<ActionResult> RemoverCupom(Guid id)
         {
-            if (id == null) return BadRequest("Favor informar o id");
-            var response = await _cupomService.Deletar(id);
-            if (!response) return BadRequest("Nao foi possivel deletar");
+            if (id == Guid.Empty) return BadRequest("Favor informar os dados");
 
-            return Ok("Cupom deletado com Sucesso");
+            var resultado = await _cuponsServices.DeletarCupom(id);
+
+            if (!resultado) return BadRequest("Id inválido");
+
+            return Ok("Cupom deletado com sucesso");
         }
 
+        [HttpPut]
+        [Route("ativar-cupom")]
+        public async Task<ActionResult> AtivarCupom(Guid id)
+        {
+            if (id == null) return BadRequest("Favor informar os dados");
+            
+            var resultado = await _cuponsServices.AtivarCupom(id);
 
+            if (!resultado) return BadRequest("Não é possivel ativar pois já está ativo");
 
+            return Ok("Cupom ativado com sucesso");
+        }
+
+        [HttpPut]
+        [Route("desativar-cupom")]
+        public async Task<ActionResult> DesativarCupom(Guid id)
+        {
+            if (id == null) return BadRequest("Nenhum valor chegou na API");
+
+            var resultado = await _cuponsServices.DesativarCupom(id);
+
+            if (!resultado) return BadRequest("O cupom já está desativado");
+
+            return Ok("Cupom desativado com sucesso");
+        }
 
 
     }

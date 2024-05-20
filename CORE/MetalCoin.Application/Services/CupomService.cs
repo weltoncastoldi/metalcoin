@@ -7,122 +7,118 @@ using Metalcoin.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MetalCoin.Application.Services
 {
-    public class CupomService : ICupomService
+    public class CupomService : ICuponsServices
     {
-        private readonly ICupomRespository _cupomRepository;
-
-        public CupomService (ICupomRespository cupomRespository)
+        private readonly ICuponsRepository _cuponsRepository;
+        public CupomService(ICuponsRepository repository)
         {
-            _cupomRepository = cupomRespository;
+            _cuponsRepository = repository;
         }
 
-        
-
-
-        public async Task<bool> Ativar(Guid id)
+        public async Task<bool> AtivarCupom(Guid id)
         {
-            var cupomDb = await _cupomRepository.ObterPorId(id);
-            if (cupomDb == null ) return false;
-
-            cupomDb.Status = TipoStatus.Ativo;
-
-            return true;
-        }
-        public async Task<bool> Desativar(Guid id)
-        {
-            var cupomDb = await _cupomRepository.ObterPorId(id);
-            if (cupomDb == null) return false;
-
-            cupomDb.Status = TipoStatus.Desativado;
-
-            return true;
-        }
-
-        public async Task<CupomResponse> AtualizarCupom(CupomAtualizarRequest cupom)
-        {
+           var cupomDb = await _cuponsRepository.ObterPorId(id);
+           if (cupomDb.statusCupom == 0) return false;
+           cupomDb.statusCupom = TipoStatusCupom.Ativo;
+            await _cuponsRepository.Atualizar(cupomDb);
+           
             
-            var cupomDb = await _cupomRepository.ObterPorId(cupom.Id);
-            if (cupomDb == null)  return null;
+           return true;
+        }
 
-            cupomDb.Codigo = cupom.Codigo;
-            cupomDb.Descricao = cupom.Descricao;
+        public async Task<CupomResponse> AtualizaCupom(CupomAtualizarRequest cupom)
+        {
+            var cupomDb = await _cuponsRepository.ObterPorId(cupom.Id);
+
+            cupomDb.statusCupom = cupom.statusCupom;
+            cupomDb.Descricao = cupom.Descricao.ToUpper();
             cupomDb.ValorDesconto = cupom.ValorDesconto;
-            cupomDb.TipoDesconto = cupom.TipoDesconto;
-            cupomDb.DataValidade = cupom.DataValidade;
-            cupomDb.QuantidadeLiberado = cupom.QuantidadeLiberado;
-            cupomDb.Status = cupom.Status;
+            cupomDb.TipoDescontoCupon = cupom.TipoDescontoCupon;
+            cupomDb.DataValidade = DateTime.Now;
+            await _cuponsRepository.Atualizar(cupomDb);
 
             var response = new CupomResponse
             {
-                
-                Id = cupomDb.Id,
-                Codigo = cupomDb.Codigo,
+                CodigoCupom = cupomDb.CodigoCupom,
                 Descricao = cupomDb.Descricao,
+                statusCupom = cupomDb.statusCupom,
+                TipoDescontoCupon = cupomDb.TipoDescontoCupon,
                 ValorDesconto = cupomDb.ValorDesconto,
-                TipoDesconto = cupomDb.TipoDesconto,
-                DataValidade = cupomDb.DataValidade,
-                QuantidadeLiberado = cupomDb.QuantidadeLiberado,
-                Status = cupomDb.Status,
+
+
 
             };
 
             return response;
         }
-
-        public async Task<CupomResponse> CadastrarCupom(CupomCadastraRequest cupom)
+       
+        public async Task<CupomResponse> CadastrarCupom(CupomCadastrarRequest cupom)
         {
-            var verificarCupomExistente = await _cupomRepository.ObterPorId(cupom.Id);
-
-            if (verificarCupomExistente != null) return null;
-
-
+            if (cupom.DataValidade < DateTime.Now) return null;
             var cupomEntidade = new Cupom
             {
-                Id = cupom.Id,
-                Codigo = cupom.Codigo,
-                Descricao = cupom.Descricao,
+                CodigoCupom = "aleatorio",
+                Descricao = cupom.Descricao.ToUpper(),
+                statusCupom = cupom.statusCupom,
                 ValorDesconto = cupom.ValorDesconto,
-                TipoDesconto = cupom.TipoDesconto,
+                TipoDescontoCupon = cupom.TipoDescontoCupon,
                 DataValidade = cupom.DataValidade,
-                QuantidadeLiberado = cupom.QuantidadeLiberado,
-                Status = cupom.Status,
+                
+                
             };
-
-
-            await _cupomRepository.Adicionar(cupomEntidade);
+            
+            await _cuponsRepository.Adicionar(cupomEntidade);
 
             var response = new CupomResponse
             {
-                Id = cupomEntidade.Id,
-                Codigo = cupomEntidade.Codigo,
+                CodigoCupom = cupomEntidade.CodigoCupom,
                 Descricao = cupomEntidade.Descricao,
+                statusCupom = cupomEntidade.statusCupom,
+                TipoDescontoCupon = cupomEntidade.TipoDescontoCupon,
                 ValorDesconto = cupomEntidade.ValorDesconto,
-                TipoDesconto = cupomEntidade.TipoDesconto,
-                DataValidade = cupomEntidade.DataValidade,
-                QuantidadeLiberado = cupomEntidade.QuantidadeLiberado,
-                QuantidadeUsado = cupomEntidade.QuantidadeUsado,
-                Status = cupomEntidade.Status
-
+                
             };
 
             return response;
-
-
-
         }
 
-        public async Task<bool> Deletar(Guid id)
+        public async Task<bool> DeletarCupom(Guid id)
         {
-            var cupomDb = _cupomRepository.ObterPorId(id);
-            if (cupomDb == null) { return false; }
+            var cupom = await _cuponsRepository.ObterPorId(id);
+            if (cupom == null) return false;
 
-            await _cupomRepository.Remover(id);
+
+            await _cuponsRepository.Remover(id);
             return true;
         }
+
+        public async Task<bool> DesativarCupom(Guid id)
+        {
+            var cupomDb = await _cuponsRepository.ObterPorId(id);
+            if (cupomDb.statusCupom == TipoStatusCupom.Desativado) return false;
+            cupomDb.statusCupom = TipoStatusCupom.Desativado;
+
+            await _cuponsRepository.Atualizar(cupomDb);
+
+
+            return true;
+        }
+
+        //public async Task<CupomResponse> UtilizarCupom(UtilizarCupomRequest cupom)
+        //{
+        //    var cupomDb = await _cuponsRepository.BuscarPorCodigo(cupom);
+            
+        //    cupomDb.qu = TipoStatusCupom.Ativo;
+        //    await _cuponsRepository.Atualizar(cupomDb);
+
+
+        //    return true;
+        //}
     }
 }

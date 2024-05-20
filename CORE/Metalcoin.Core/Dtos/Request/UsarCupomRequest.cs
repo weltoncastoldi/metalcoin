@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Metalcoin.Core.Enums
+namespace Metalcoin.Core.Dtos.Request
 {
-    public  enum TipoDesconto
+    public class UsarCupomRequest
     {
-        Porcentagem = 0,
-        ValorFixo = 1
+        public string CodigoCupom { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Metalcoin.Core.Domain;
+using Metalcoin.Core.Dtos.Request;
 using Metalcoin.Core.Dtos.Response;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Metalcoin.Core.Interfaces.Repositories
 
         Task<List<Cupom>>BuscarTodosDisponiveis();
         Task<List<Cupom>> BuscarTodosIndisponiveis();
+        Task<Cupom> BuscarPorCodigo(string codigo);
 
     }
 }

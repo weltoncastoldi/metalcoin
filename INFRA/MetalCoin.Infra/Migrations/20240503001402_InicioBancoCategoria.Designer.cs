@@ -4,6 +4,7 @@ using MetalCoin.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetalCoin.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240503001402_InicioBancoCategoria")]
+    partial class InicioBancoCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,37 +46,6 @@ namespace MetalCoin.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorias", (string)null);
-                });
-
-            modelBuilder.Entity("Metalcoin.Core.Domain.Cupom", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CodigoCupom")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<DateTime>("DataValidade")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<int>("TipoDescontoCupon")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("ValorDesconto")
-                        .HasColumnType("decimal");
-
-                    b.Property<int>("statusCupom")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cupons", (string)null);
                 });
 
             modelBuilder.Entity("Metalcoin.Core.Domain.Endereco", b =>
