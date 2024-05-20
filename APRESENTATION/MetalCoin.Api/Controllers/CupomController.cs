@@ -114,13 +114,28 @@ namespace MetalCoin.Api.Controllers
         [Route("desativar-cupom")]
         public async Task<ActionResult> DesativarCupom(Guid id)
         {
-            if (id == null) return BadRequest("Nenhum valor chegou na API");
+            if (id == null) return BadRequest("Favor informar os dados");
 
             var resultado = await _cuponsServices.DesativarCupom(id);
 
             if (!resultado) return BadRequest("O cupom já está desativado");
 
             return Ok("Cupom desativado com sucesso");
+        }
+        
+        [HttpPut]
+        [Route("ultilizar-cupom")]
+        public async Task<ActionResult> UltilizarCupom(string codigo)
+        {
+            if (codigo == null) return BadRequest("Favor informar o Codigo do cupom");
+
+            var usarCupom = await _cuponsServices.UlltilizarCupom(codigo);
+
+            if (!usarCupom) return BadRequest("Não foi possivel ultilizar cupom");
+
+            return Ok("Cupom Ultilizado com sucesso!");
+
+            
         }
 
 

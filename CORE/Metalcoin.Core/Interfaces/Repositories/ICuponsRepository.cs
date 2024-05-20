@@ -13,7 +13,7 @@ namespace Metalcoin.Core.Interfaces.Repositories
     {
         Task<List<Cupom>> BuscarCupomAtivos();
         Task<List<Cupom>> BuscarCupomIndisponiveis();
+        Task<Cupom> ObterPorCodigo(string codigo);
 
-        //Task<Cupom> BuscarPorCodigo(UtilizarCupomRequest cupom);
     }
 }

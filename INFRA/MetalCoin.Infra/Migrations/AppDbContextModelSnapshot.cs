@@ -63,6 +63,12 @@ namespace MetalCoin.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int>("QuantidadeLiberado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantidadeUltilizado")
+                        .HasColumnType("int");
+
                     b.Property<int>("TipoDescontoCupon")
                         .HasColumnType("int");
 

@@ -25,10 +25,11 @@ namespace MetalCoin.Infra.Data.Repositories
             var resultado = await DbSet.Where(x => x.statusCupom == TipoStatusCupom.Desativado).ToListAsync();
             return resultado;
         }
-        //public async Task<Cupom> BuscarPorCodigo(string codigo)
-        //{
-        //    var resultado = await DbSet.Where(x => x.CodigoCupom == codigo).ToListAsync();
-        //    return resultado;
-        //}
+
+        public async Task<Cupom> ObterPorCodigo(string codigo)
+        {
+            var cupom = await DbSet.Where(x => x.CodigoCupom == codigo).FirstOrDefaultAsync();
+            return cupom;
+        }
     }
 }

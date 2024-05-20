@@ -110,15 +110,20 @@ namespace MetalCoin.Application.Services
             return true;
         }
 
-        //public async Task<CupomResponse> UtilizarCupom(UtilizarCupomRequest cupom)
-        //{
-        //    var cupomDb = await _cuponsRepository.BuscarPorCodigo(cupom);
+        public async Task<bool> UlltilizarCupom(string codigo)
+        {
+            var cupomDb = await _cuponsRepository.ObterPorCodigo(codigo);
+            if (cupomDb == null) return false;
+
+            cupomDb.QuantidadeUltilizado++;
+            cupomDb.QuantidadeLiberado--;
+
+            await _cuponsRepository.Atualizar(cupomDb);
+
+            return true;
+
             
-        //    cupomDb.qu = TipoStatusCupom.Ativo;
-        //    await _cuponsRepository.Atualizar(cupomDb);
 
-
-        //    return true;
-        //}
+        }
     }
 }

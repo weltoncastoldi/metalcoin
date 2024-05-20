@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetalCoin.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240308002339_InicioBanco")]
-    partial class InicioBanco
+    [Migration("20240520150422_novo-banco")]
+    partial class novobanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,67 @@ namespace MetalCoin.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Metalcoin.Core.Domain.Categoria", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataAlteracao")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias", (string)null);
+                });
+
+            modelBuilder.Entity("Metalcoin.Core.Domain.Cupom", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CodigoCupom")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime>("DataValidade")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("QuantidadeLiberado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantidadeUltilizado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoDescontoCupon")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ValorDesconto")
+                        .HasColumnType("decimal");
+
+                    b.Property<int>("statusCupom")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cupons", (string)null);
+                });
 
             modelBuilder.Entity("Metalcoin.Core.Domain.Endereco", b =>
                 {
