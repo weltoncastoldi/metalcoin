@@ -25,6 +25,9 @@ namespace MetalCoin.Infra.Data.Mappings
                 .HasColumnType("bit")
                 .IsRequired();
 
+            builder.Property(p => p.CapaUrl)
+               .HasColumnType("varchar(1000)");
+               
             builder.Property(p => p.DataCadastro)
                 .HasColumnType("datetime")
                 .IsRequired();

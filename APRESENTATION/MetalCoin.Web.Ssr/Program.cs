@@ -1,6 +1,9 @@
+using MetalCoin.Infra.Data;
+using MetalCoin.Web.Ssr.Configuracoes;
 using MetalCoin.Web.Ssr.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+// Configuração do banco de dados SQL Server
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("SqlServer"));
+});
+
+builder.Services.ResolveDependencias();
 
 var app = builder.Build();
 
