@@ -75,5 +75,26 @@ namespace MetalCoin.Application.Services
             await _categoriaRepository.Remover(id);
             return true;
         }
+
+        public async Task<List<CategoriaResponse>> ObterTodasAsCategoriasAtivas()
+        {
+            var categoriaEntidade = await _categoriaRepository.ObterTodos();
+
+            var ativas = categoriaEntidade.Where(c => c.Status == true);
+
+            var response = ativas.Select(c => new CategoriaResponse
+            {
+                Id = c.Id,
+                Nome = c.Nome,
+                Status = c.Status,
+                DataAlteracao = c.DataAlteracao,
+                DataCadastro = c.DataCadastro,
+                FotoCapa = c.CapaUrl
+            });
+
+            return response.ToList();
+
+
+        }
     }
 }
