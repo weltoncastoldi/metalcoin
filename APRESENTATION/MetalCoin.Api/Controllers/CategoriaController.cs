@@ -31,6 +31,17 @@ namespace MetalCoin.Api.Controllers
             return Ok(listaCategorias);
         }
 
+        [HttpGet]
+        [Route("todos/ativas")]
+        public async Task<ActionResult> ObterTodasCategoriasAtivas()
+        {
+            var listaCategorias = await _categoriaService.ObterTodasAsCategoriasAtivas();
+
+            if (listaCategorias.Count == 0) return NoContent();
+
+            return Ok(listaCategorias);
+        }
+
 
         [HttpGet]
         [Route("{id:guid}")]
